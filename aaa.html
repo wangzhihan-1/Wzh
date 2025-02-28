@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抖音互动页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+      .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            margin: 10px;
+            padding: 25px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button#follow {
+            background-color: #1da1f2;
+            color: white;
+        }
+
+        button#unfollow {
+            background-color: #ccc;
+            color: white;
+        }
+
+      .result {
+            margin-top: 20px;
+        }
+
+      .thumb-up {
+            font-size: 50px;
+            color: green;
+        }
+
+      .no-taste {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: red;
+            font-size: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+      .qr-code {
+            margin-top: 20px;
+            max-width: 200px;
+            /* 限制图片最大宽度 */
+            margin: 20px auto;
+            /* 水平居中 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>欢迎来到我的抖音页面</h1>
+        <p>抖音名：你的眼睛像你妈妈一样</p>
+        <p>抖音ID：dy1ukjtzb06e</p>
+        <div class="qr-code">
+            <img src="https://p9-bot-sign.byteimg.com/tos-cn-i-v4nquku3lp/a475eadb23a04389a8fb18227967b2d5.jpg~tplv-v4nquku3lp-image.image?rk3s=68e6b6b5&x-expires=1743341906&x-signature=JwdRYeDdU%2BLob0qCcd56uqRqJf4%3D"
+                alt="抖音二维码">
+        </div>
+        <button id="follow">关注</button>
+        <button id="unfollow">不关注</button>
+        <div class="result"></div>
+        <div class="no-taste">没品</div>
+    </div>
+    <script>
+        document.getElementById('follow').addEventListener('click', function () {
+            const resultDiv = document.querySelector('.result');
+            const noTasteDiv = document.querySelector('.no-taste');
+            resultDiv.innerHTML = '<span class="thumb-up">👍</span>';
+            noTasteDiv.style.display = 'none';
+        });
+
+        document.getElementById('unfollow').addEventListener('click', function () {
+            const resultDiv = document.querySelector('.result');
+            const noTasteDiv = document.querySelector('.no-taste');
+            resultDiv.innerHTML = '';
+            noTasteDiv.style.display = 'flex';
+        });
+    </script>
+
+</body>
+
+</html>
