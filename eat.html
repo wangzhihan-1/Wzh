@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今天吃什么呢</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0e0e0; /* 莫兰迪色系背景色示例 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        #wheel {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 50%;
+            background-color: #f5f5f5; /* 转盘背景色 */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+       .slice {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            clip: rect(0, 200px, 400px, 0);
+            transform-origin: 100% 100%;
+        }
+
+       .slice span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        #pointer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 20px solid #ff6f00; /* 指针颜色 */
+            z-index: 10;
+        }
+
+        #startButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            background-color: #ff6f00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #result {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            font-size: 24px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="wheel">
+            <!-- 动态生成100个扇形 -->
+            <script>
+                const items = [
+                    "咖喱饭", "鸡公煲", "土豆粉", "鸭血粉丝", "广式肠粉", "川香干锅", "锅盔", "麻辣香锅",
+                    "汉堡炸鸡", "醉面", "198自选", "重庆麻辣烫", "小笼包", "鱼康鱼粉", "脆皮鸡", "鱼多美",
+                    "美味饼屋", "炸鸡腿", "肉夹馍", "早阳包子", "醉美小火锅", "铁锅炖", "牛井饭", "豆花饭",
+                    "牛肉汤", "东北水饺", "烤盘饭", "黄焖鸡", "铁板厨房", "瘦show", "千里香混沌", "渝悦川菜",
+                    "港式烧腊饭", "爱尚韩食", "土豆泥拌面", "鸡蛋仔", "青蔬麻辣烫", "夸父炸串", "鱼你在一起",
+                    "麦当劳
