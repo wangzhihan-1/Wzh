@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今天吃什么</title>
+    <style>
+        body {
+            text-align: center;
+            font-size: 24px;
+            background-color: lightgray;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>今天吃什么？</h1>
+    <div id="result"></div>
+
+    <script>
+        const foodList = [
+            "咖喱饭",
+            "鸡公煲",
+            "土豆粉",
+            "鸭血粉丝",
+            "广式肠粉",
+            "川香干锅",
+            "锅盔",
+            "麻辣香锅",
+            "汉堡炸鸡",
+            "醉面",
+            "198自选",
+            "重庆麻辣烫",
+            "小笼包",
+            "鱼康鱼粉",
+            "脆皮鸡",
+            "鱼多美",
+            "美味饼屋",
+            "炸鸡腿",
+            "肉夹馍",
+            "早阳包子",
+            "醉美小火锅",
+            "铁锅炖",
+            "牛井饭",
+            "豆花饭",
+            "牛肉汤",
+            "东北水饺",
+            "烤盘饭",
+            "黄焖鸡",
+            "铁板厨房",
+            "瘦show",
+            "千里香混沌",
+            "渝悦川菜",
+            "港式烧腊饭",
+            "爱尚韩食",
+            "土豆泥拌面",
+            "鸡蛋仔",
+            "青蔬麻辣烫",
+            "夸父炸串",
+            "鱼你在一起",
+            "麦当劳",
+            "螺狮粉",
+            "椒麻鸡",
+            "馋嘴鱼",
+            "饭否",
+            "米村拌饭",
+            "达美乐",
+            "肯德基",
+            "袁记云饺",
+            "煎饼果子",
+            "赛百味",
+            "紫菜包饭",
+            "凉皮先生",
+            "江川右",
+            "杨国福",
+            "李先生",
+            "乐山跷脚牛肉",
+            "拌将",
+            "西贝",
+            "荷叶烤鸡",
+            "川渝风味",
+            "重庆小面",
+            "必胜客",
+            "麦田归来",
+            "台湾卤肉饭",
+            "魏家凉皮",
+            "吉野家",
+            "永和大王",
+            "新疆炒米粉",
+            "黄响蛋包饭",
+            "和合谷",
+            "西少爷",
+            "小马扎",
+            "辣和友",
+            "烤肉",
+            "海底捞",
+            "烤鱼",
+            "比格披萨",
+            "匠人烧",
+            "黄氏许牛奶",
+            "鸡柳大人",
+            "潇湘阁",
+            "费大厨",
+            "饿一顿吧别吃了"
+        ];
+
+        document.addEventListener('click', function () {
+            const randomIndex = Math.floor(Math.random() * foodList.length);
+            document.getElementById('result').innerHTML = foodList[randomIndex];
+        });
+    </script>
+</body>
+
+</html>
