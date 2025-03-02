@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>餐厅选择器</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+ .wheel-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+
+    canvas {
+      border: 1px solid #000;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wheel-container">
+    <canvas id="wheel" width="300" height="300"></canvas>
+  </div>
+
+  <script>
+    const restaurantNames = [
+      "肉夹馍", "早阳包子", "醉美小火锅", "铁锅炖", "牛肉汤", "东北水饺", "烤盘饭", "黄焖鸡",
+      "铁板厨房", "千里香混沌", "渝悦川菜", "港式烧腊饭", "爱尚韩食", "土豆泥拌面", "鸡蛋仔", "青蔬麻辣烫",
+      "夸父炸串", "鱼你在一起", "麦当劳", "椒麻鸡", "馋嘴鱼", "饭否", "米村拌饭", "达美乐", "肯德基",
+      "袁记云饺", "煎饼果子", "赛百味", "紫菜包饭", "凉皮先生", "江川右", "杨国福", "李先生", "拌将",
+      "西贝", "荷叶烤鸡", "重庆小面", "必胜客", "麦田归来", "台湾卤肉饭", "魏家凉皮", "吉野家", "永和大王",
+      "新疆炒米粉", "黄响蛋包饭", "和合谷", "绿茶", "湖南风味", "乐山跷脚牛肉", "鸡公煲"
+    ];
+
+    const canvas = document.getElementById('wheel');
+    const ctx = canvas.getContext('2d');
+
+    function drawWheel() {
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = Math.min(canvas.width, canvas.height) / 2 - 10;
+      const angleStep = (2 * Math.PI) / restaurantNames.length;
+
+      for (let i = 0; i < restaurantNames.length; i++) {
+        const startAngle = i * angleStep;
+        const endAngle = (i + 1) * angleStep;
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+        ctx.closePath();
+        ctx.fillStyle = getRandomColor();
+        ctx.fill();
+
+        const textX = centerX + (radius * 0.7) * Math.cos((startAngle + endAngle) / 2);
+        const textY = centerY + (radius * 0.7) * Math.sin((startAngle + endAngle) / 2);
+        ctx.font = '10px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(restaurantNames[i], textX, textY);
+      }
+    }
+
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function startRotation() {
+      let rotation = 0;
+      const totalDuration = 5000;
+      const startTime = Date.now();
+
+      function rotate() {
+        const elapsedTime = Date.now() - startTime;
+        const progress = Math.min(elapsedTime / totalDuration, 1);
+        rotation += 0.1;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.rotate(rotation);
+        drawWheel();
+
+        if (elapsedTime < totalDuration) {
+          requestAnimationFrame(rotate);
+        } else {
+          const
