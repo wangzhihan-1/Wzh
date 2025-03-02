@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>今天吃什么呢</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+ .container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+
+    canvas {
+      border: 1px solid #000;
+      border-radius: 50%;
+    }
+
+ .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      font-size: 3em;
+      color: white;
+    }
+
+ .pointer {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 15px solid red;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <canvas id="wheel" width="300" height="300"></canvas>
+    <div class="pointer" id="pointer"></div>
+  </div>
+  <div class="overlay" id="overlay">
+  </div>
+
+  <script>
+    const options = [
+      "土豆粉", "鸭血粉丝", "广式肠粉", "川香干锅", "锅盔", "麻辣香锅", "汉堡炸鸡", "醉面", "美味饼屋",
+      "炸鸡腿", "肉夹馍", "早阳包子", "醉美小火锅", "铁锅炖", "牛肉汤", "东北水饺", "烤盘饭", "黄焖鸡",
+      "铁板厨房", "千里香混沌", "渝悦川菜", "港式烧腊饭", "爱尚韩食", "土豆泥拌面", "鸡蛋仔", "青蔬麻辣烫",
+      "夸父炸串", "鱼你在一起", "麦当劳", "椒麻鸡", "馋嘴鱼", "饭否", "米村拌饭", "达美乐", "肯德基",
+      "袁记云饺", "煎饼果子", "赛百味", "紫菜包饭", "凉皮先生", "江川右", "杨国福", "李先生", "拌将",
+      "西贝", "荷叶烤鸡", "重庆小面", "必胜客", "麦田归来", "台湾卤肉饭", "魏家凉皮", "吉野家", "永和大王",
+      "新疆炒米粉", "黄响蛋包饭", "和合谷", "绿茶", "湖南风味", "乐山跷脚牛肉", "鸡公煲"
+    ];
+
+    const canvas = document.getElementById('wheel');
+    const ctx = canvas.getContext('2d');
+    const overlay = document.getElementById('overlay');
+    const pointer = document.getElementById('pointer');
+
+    let isSpinning = false;
+    let rotationSpeed = 0;
+    let rotationDirection = 1;
+    let totalRotation = 0;
+
+    canvas.addEventListener('click', function () {
+      if (!isSpinning) {
+        isSpinning = true;
+        rotationSpeed = Math.random() * 10 + 5;
+        rotationDirection = Math.random() > 0.5? 1 : -1;
+        totalRotation = 0;
+        spinWheel();
+      }
+    });
+
+    function spinWheel() {
+      if (isSpinning) {
+        totalRotation += rotationSpeed * rotationDirection;
+        pointer.style.transform = `translate(-50%, -50%) rotate(${totalRotation}deg)`;
+        rotationSpeed *= 0.95;
+        if (rotationSpeed < 0.1) {
+          isSpinning = false;
+          const randomIndex = Math.floor(Math.random() * options.length);
