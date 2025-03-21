@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>古诗网页</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="title">古典诗词</h1>
+    <div class="poem">
+      <h2 class="poem-title">静夜思</h2>
+      <p class="poem-content">床前明月光，</p>
+      <p class="poem-content">疑是地上霜。</p>
+      <p class="poem-content">举头望明月，</p>
+      <p class="poem-content">低头思故乡。</p>
+    </div>
+    <div class="poem">
+      <h2 class="poem-title">咏鹅</h2>
+      <p class="poem-content">鹅，鹅，鹅，</p>
+      <p class="poem-content">曲项向天歌。</p>
+      <p class="poem-content">白毛浮绿水，</p>
+      <p class="poem-content">红掌拨清波。</p>
+    </div>
+  </div>
+</body>
+
+</html>
+body {
+  font-family: 'SimSun', serif;
+  background-color: #f0e6d2;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 600px;
+}
+
+.title {
+  text-align: center;
+  color: #800000;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.poem {
+  margin-bottom: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.poem-title {
+  text-align: center;
+  color: #4b0082;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.poem-content {
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.6;
+}
