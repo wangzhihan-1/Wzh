@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CD Player</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #FFF0F5;
+            font-family: 'Pacifico', cursive;
+            position: relative;
+            overflow: hidden;
+        }
+
+       .cd-player {
+            width: 400px;
+            background-color: #FFE4E1;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255, 192, 203, 0.8);
+            padding: 30px;
+            text-align: center;
+            z-index: 1;
+        }
+
+       .cd {
+            width: 200px;
+            height: 200px;
+            /* 替换此处的图片链接 */
+            background-image: url('1.jpg');
+            background-size: cover;
+            border-radius: 50%;
+            margin: 20px auto;
+            animation: rotate 5s linear infinite paused;
+            transform-origin: 50% 50%;
+            border: 5px solid #FFB6C1;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+       .lyrics {
+            height: 80px;
+            overflow: hidden;
+            position: relative;
+            color: #FF1493;
+            font-size: 18px;
+        }
+
+       .lyrics p {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            margin: 0;
+            animation: scroll 10s linear infinite paused;
+        }
+
+        @keyframes scroll {
+            from {
+                top: 100%;
+            }
+            to {
+                top: -100%;
+            }
+        }
+
+       .controls button {
+            padding: 12px 25px;
+            margin: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #FF69B4;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+            transition: background-color 0.3s ease;
+        }
+
+       .controls button:hover {
+            background-color: #FF1493;
+        }
+
+       .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 192, 203, 0.5);
+            animation: bubble 5s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes bubble {
+            0% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cd-player">
+        <div class="cd"></div>
+        <div class="lyrics">
+            <p>我能习惯远距离<br>爱总是身不由己<br>宁愿换个方式至少还能<br>遥远爱着你<br>爱能克服远距离<br>多远都要在一起<br>你已经不存在我世界里<br>请不要离开我的会议</p>
+        </div>
+        <div class="controls">
+            <button id="play-pause">播放</button>
+        </div>
+    </div>
+    <script>
+        const cd = document.querySelector('.cd');
+        const lyrics = document.querySelector('.lyrics p');
+        const playPauseButton = document.getElementById('play-pause');
+        const body = document.body;
+        let isPlaying = false;
+        let bubbleInterval;
+
+        playPauseButton.addEventListener('click', function () {
+            if (isPlaying) {
+                cd.style.animationPlayState = 'paused';
+                lyrics.style.animationPlayState = 'paused';
+                playPauseButton.textContent = '播放';
+                clearInterval(bubbleInterval);
+                const bubbles = document.querySelectorAll('.bubble');
+                bubbles.forEach(bubble => bubble.remove());
+            } else {
+                cd.style.animationPlayState = 'running';
+                lyrics.style.animationPlayState = 'running';
+                playPauseButton.textContent = '暂停';
+                bubbleInterval = setInterval(createBubble, 500);
+            }
+            isPlaying = !isPlaying;
+        });
+
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            const size = Math.random() * 50 + 20;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${Math.random() * window.innerWidth}px`;
+            body.appendChild(bubble);
+            setTimeout(() => {
+                bubble.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+
+</html>    
