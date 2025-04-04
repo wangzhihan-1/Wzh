@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CD Player</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fde4e1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            animation: bubble 10s linear infinite;
+        }
+
+        @keyframes bubble {
+            0% {
+                transform: translateY(100vh);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+
+        .cd-player {
+            background-color: #ffb6c1;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .cd {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background-image: url('洋娃娃和小熊跳舞.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .cd.playing {
+            animation: rotate 5s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .controls {
+            margin-bottom: 20px;
+        }
+
+        .controls button {
+            background-color: #fff;
+            color: #ffb6c1;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .controls button:hover {
+            background-color: #f8f9fa;
+        }
+
+        .lyrics-container {
+            width: 300px;
+            height: 150px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .lyrics {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            animation-play-state: paused;
+        }
+
+        .lyrics.playing {
+            animation: scroll 20s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 生成泡泡 -->
+    <div class="bubble" style="width: 50px; height: 50px; left: 10%;"></div>
+    <div class="bubble" style="width: 30px; height: 30px; left: 20%;"></div>
+    <div class="bubble" style="width: 40px; height: 40px; left: 30%;"></div>
+    <div class="bubble" style="width: 60px; height: 60px; left: 40%;"></div>
+    <div class="bubble" style="width: 20px; height: 20px; left: 50%;"></div>
+    <div class="bubble" style="width: 35px; height: 35px; left: 60%;"></div>
+    <div class="bubble" style="width: 55px; height: 55px; left: 70%;"></div>
+    <div class="bubble" style="width: 25px; height: 25px; left: 80%;"></div>
+    <div class="bubble" style="width: 45px; height: 45px; left: 90%;"></div>
+
+    <div class="cd-player">
+        <div class="cd"></div>
+        <div class="controls">
+            <button id="play-pause-btn" onclick="togglePlay()"><i class="fa-solid fa-play"></i></button>
+            <button id="stop-btn" onclick="stopMusic()"><i class="fa-solid fa-stop"></i></button>
+        </div>
+        <audio id="midi-audio" src="最终版.mid"></audio>
+        <div class="lyrics-container">
+            <div class="lyrics">
+                <p>洋娃娃和</p>
+                <p>小熊跳舞</p>
+                <p>1234121</p>
+                <p>洋娃娃和</p>
+                <p>小熊跳舞</p>
+                <p>1234121</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const cd = document.querySelector('.cd');
+        const audio = document.getElementById('midi-audio');
+        const lyrics = document.querySelector('.lyrics');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        let isFirstPlay = true;
+
+        function togglePlay() {
+            if (isFirstPlay) {
+                audio.play();
+                cd.classList.add('playing');
+                playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                isFirstPlay = false;
+            } else {
+                if (audio.paused) {
+                    audio.play();
+                    cd.classList.add('playing');
+                    lyrics.classList.add('playing');
+                    playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                } else {
+                    audio.pause();
+                    cd.classList.remove('playing');
+                    lyrics.classList.add('playing');
+                    playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                }
+            }
+        }
+
+        function stopMusic() {
+            audio.pause();
+            audio.currentTime = 0;
+            cd.classList.remove('playing');
+            lyrics.classList.remove('playing');
+            playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+            isFirstPlay = true;
+        }
+    </script>
+</body>
+
+</html>
+    
