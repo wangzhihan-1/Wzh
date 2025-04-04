@@ -2,29 +2,25 @@
 <html>
 <head>
     <title>MIDI播放器</title>
-    <script src="https://cdn.jsdelivr.net/npm/@magenta/music@1.23.1/es6/core.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/midijs@0.15.0/dist/midi.min.js"></script>
 </head>
 <body>
-    <h1>MIDI播放器</h1>
     <button id="play">播放</button>
     <button id="stop">停止</button>
-    
+
     <script>
-        const player = new core.Player();
         const playBtn = document.getElementById('play');
         const stopBtn = document.getElementById('stop');
         
-        // 替换为你的MIDI文件GitHub原始URL
-        const midiUrl = '最终版.mid';
+        // 使用修正后的raw链接
+        const midiUrl = 'https://raw.githubusercontent.com/wangzhihan-1/Wzh/911ac0dfd0906bddf90ae86a1699397fe5929096/%E6%9C%80%E7%BB%88%E7%89%88.mid';
         
-        playBtn.addEventListener('click', async () => {
-            const response = await fetch(midiUrl);
-            const midiData = await response.arrayBuffer();
-            player.start(midiData);
+        playBtn.addEventListener('click', () => {
+            MIDIjs.play(midiUrl); // 播放MIDI
         });
         
         stopBtn.addEventListener('click', () => {
-            player.stop();
+            MIDIjs.stop(); // 停止播放
         });
     </script>
 </body>
