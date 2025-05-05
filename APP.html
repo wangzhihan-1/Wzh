@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #FFE4E1; /* 浅粉色背景，营造温馨氛围 */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 顶部标题样式 */
+        .header {
+            background-color: #FF8C69; /* 橙色系标题栏 */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 28px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 主内容区域样式 */
+        .main-content {
+            padding: 20px;
+        }
+
+        /* 底部导航栏样式 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item:hover {
+            color: #FF4500; /* 鼠标悬停时变为亮橙色 */
+        }
+
+        .nav-item i {
+            font-size: 24px;
+        }
+
+        .nav-item span {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 顶部标题 -->
+    <div class="header">
+        宠忆无界
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <p style="text-align: center; color: #333;">欢迎来到萌趣的宠忆无界世界！</p>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item">
+            <i class="fa-solid fa-tombstone"></i>
+            <span>数字殡葬</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fa-solid fa-paw"></i>
+            <span>云养宠物</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fa-solid fa-store"></i>
+            <span>商城</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fa-solid fa-users"></i>
+            <span>社群</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fa-solid fa-user"></i>
+            <span>我的</span>
+        </a>
+    </div>
+    <script src="https://kit.fontawesome.com/6825951c54.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
