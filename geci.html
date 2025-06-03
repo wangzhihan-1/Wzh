@@ -236,83 +236,93 @@
 </div>
 
                 <!-- 主题聚类内容 -->
-                <div id="topicClusteringContent" class="hidden">
-                    <div class="flex items-center mb-6">
-                        <div class="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center mr-3">
-                            <i class="fa fa-object-group text-accent"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-dark">主题聚类</h3>
+               <div id="topicClusteringContent" class="hidden">
+    <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center mr-3">
+            <i class="fa fa-object-group text-accent"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-dark">主题聚类</h3>
+    </div>
+    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <button class="topic-btn bg-white hover:bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm transition-all duration-200 hover:shadow" data-content="perplexity">
+                <div class="flex items-center justify-center h-12 mb-2">
+                    <i class="fa fa-line-chart text-accent text-xl"></i>
+                </div>
+                <p class="font-medium text-center">主题聚类图.png</p>
+            </button>
+            <button class="topic-btn bg-white hover:bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm transition-all duration-200 hover:shadow" data-content="topicWord">
+                <div class="flex items-center justify-center h-12 mb-2">
+                    <i class="fa fa-table text-accent text-xl"></i>
+                </div>
+                <p class="font-medium text-center">主题-词分布7.xlsx</p>
+            </button>
+            <button class="topic-btn bg-white hover:bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm transition-all duration-200 hover:shadow" data-content="ldaResult">
+                <div class="flex items-center justify-center h-12 mb-2">
+                    <i class="fa fa-database text-accent text-xl"></i>
+                </div>
+                <p class="font-medium text-center">数据+LDA结果7.xlsx</p>
+            </button>
+        </div>
+        
+        <div id="topicContentPlaceholder" class="text-center py-12">
+            <i class="fa fa-bar-chart text-4xl text-gray-300 mb-4"></i>
+            <p class="text-gray-500">选择上方的主题聚类分析选项，查看详细内容</p>
+        </div>
+        
+        <!-- 困惑度与一致性线型图内容 -->
+        <div id="perplexityContent" class="hidden">
+            <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+                <img src="主题聚类图.png" alt="主题聚类图" class="w-full h-auto rounded-lg">
+                <p class="text-gray-600 mt-3">是不是很困惑呢~让本巫师来为你解读！主题聚类分析中的困惑度（Perplexity）和一致性（Coherence）是评估主题模型质量的常用指标，困惑度衡量模型对未见过数据的预测能力，数值越低表示模型越好；一致性评估主题内词语的语义相关性，数值越高（通常0到1之间）表示主题越连贯。由生成的两张线型图可以看出，困惑度随着主题数增大而上升，当主题数为10时困惑度最大；一致性在特定的区间波动，当主题数为3时，一致性最高，由此看来困惑度与一致性存在冲突，此时应该优先考虑一致性，因此主题数选择3。通常期望困惑度随主题数增加而下降，而本次结果却相反，说明模型过拟合或样本量不足；一致性在主题数为2-3之间上升，说明少量主题是，词语聚焦更明确，而随着主题数增加一致性下降，说明主题细分导致语义分散。以上出现的问题与出入的原因可能在于数据量不足、预处理不当、数据实际隐含的主题数较少等，后续可能需要再进行调整，但目前来看主题聚类的效果比较明显，因此可以作为研究理论的依据。</p>
+            </div>
+        </div>
+        
+        <!-- 主题-词分布表格内容 -->
+        <div id="topicWordContent" class="hidden">
+            <div class="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-col items-center">
+                <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 mb-4 flex items-center">
+                    <i class="fa fa-file-excel-o text-green-600 text-3xl mr-3"></i>
+                    <div class="flex-1">
+                        <p class="font-medium">主题-词分布7.xlsx</p>
+                        <p class="text-sm text-gray-500">3.2 MB · Excel 工作表</p>
                     </div>
-                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                            <button class="topic-btn bg-white hover:bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm transition-all duration-200 hover:shadow" data-content="perplexity">
-                                <div class="flex items-center justify-center h-12 mb-2">
-                                    <i class="fa fa-line-chart text-accent text-xl"></i>
-                                </div>
-                                <p class="font-medium text-center">主题聚类图.png</p>
-                            </button>
-                            <button class="topic-btn bg-white hover:bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm transition-all duration-200 hover:shadow" data-content="topicWord">
-                                <div class="flex items-center justify-center h-12 mb-2">
-                                    <i class="fa fa-table text-accent text-xl"></i>
-                                </div>
-                                <p class="font-medium text-center">主题-词分布7.xlsx</p>
-                            </button>
-                            <button class="topic-btn bg-white hover:bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm transition-all duration-200 hover:shadow" data-content="ldaResult">
-                                <div class="flex items-center justify-center h-12 mb-2">
-                                    <i class="fa fa-database text-accent text-xl"></i>
-                                </div>
-                                <p class="font-medium text-center">数据+LDA结果7.xlsx</p>
-                            </button>
-                        </div>
-                        
-                        <div id="topicContentPlaceholder" class="text-center py-12">
-                            <i class="fa fa-bar-chart text-4xl text-gray-300 mb-4"></i>
-                            <p class="text-gray-500">选择上方的主题聚类分析选项，查看详细内容</p>
-                        </div>
-                        
-                        <!-- 困惑度与一致性线型图内容 -->
-                        <div id="perplexityContent" class="hidden">
-                            <div class="bg-white rounded-lg shadow-md p-4 mb-6">
-                                <img src="https://picsum.photos/id/3/800/400" alt="主题聚类图.png" class="w-full h-auto rounded-lg">
-                                <p class="text-gray-600 mt-3">是不是很困惑呢~让本巫师来为你解读！主题聚类分析中的困惑度（Perplexity）和一致性（Coherence）是评估主题模型质量的常用指标，困惑度衡量模型对未见过数据的预测能力，数值越低表示模型越好；一致性评估主题内词语的语义相关性，数值越高（通常0到1之间）表示主题越连贯。由生成的两张线型图可以看出，困惑度随着主题数增大而上升，当主题数为10时困惑度最大；一致性在特定的区间波动，当主题数为3时，一致性最高，由此看来困惑度与一致性存在冲突，此时应该优先考虑一致性，因此主题数选择3。通常期望困惑度随主题数增加而下降，而本次结果却相反，说明模型过拟合或样本量不足；一致性在主题数为2-3之间上升，说明少量主题是，词语聚焦更明确，而随着主题数增加一致性下降，说明主题细分导致语义分散。以上出现的问题与出入的原因可能在于数据量不足、预处理不当、数据实际隐含的主题数较少等，后续可能需要再进行调整，但目前来看主题聚类的效果比较明显，因此可以作为研究理论的依据。</p>
-                            </div>
-                        </div>
-                        
-                        <!-- 主题-词分布表格内容 -->
-                        <div id="topicWordContent" class="hidden">
-                            <div class="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-col items-center">
-                                <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 mb-4 flex items-center">
-                                    <i class="fa fa-file-excel-o text-green-600 text-3xl mr-3"></i>
-                                    <div class="flex-1">
-                                        <p class="font-medium">主题-词分布7.xlsx</p>
-                                        <p class="text-sm text-gray-500">3.2 MB · Excel 工作表</p>
-                                    </div>
-                                    <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
-                                        <i class="fa fa-download mr-2"></i> 下载
-                                    </button>
-                                </div>
-                                <p class="text-gray-600 text-center">这个神秘的表格展示了 7 个主题中每个主题的前 100 个关键词及其分布概率，反映了每个主题的语义特征。总结来看，主题0这一列能体现"失恋与思念"的主题，关键词为"你、我、在、想、爱、眼泪、回忆、忘不了"，集中体现分手后的情感纠葛，如 "还是会想你""思念""伤疤" 等词汇，情感偏向痛苦和留恋；主题1体现"回忆与时光"，关键词为"我们、回忆、时光、过去、遇见、曾经"，聚焦于过去的情感经历，如 "回忆""遇见""时光匆匆" 等，带有对往事的怀念；主题2体现"孤独与自我"，关键词为"我、孤独、一个人、黑夜、沉默、挣扎"，描述独处时的内心状态，如 "黑夜""孤独""挣扎" 等，情感偏向压抑；主题3体现"爱情与热烈"，关键词为"爱、火焰、疯狂、心跳、燃烧、相拥"，表达浓烈的爱情感受，如 "爱情如烈火""心跳""相拥" 等，情感热烈直接；主题4体现"陪伴与温暖"，关键词为"你、我、陪伴、身边、温暖、一起"，强调亲密关系中的陪伴，如 "想在你身边""一起""温暖" 等，情感偏向温馨；主题5体现"成长与释怀"，关键词为"余生、舍得、放下、成长、学会、遗憾"，涉及情感中的成长与释怀，如 "余生""舍得""放下" 等，带有理性思考；主题6体现"传统与叙事"，关键词为"女子、拜堂、红尘、唢呐、高堂、姻缘"，融入传统元素，如 "拜天地""高堂""姻缘" 等，可能涉及古风或叙事性歌词。如果你好奇的话就点开看看吧~</p>
-                            </div>
-                        </div>
-                        
-                        <!-- 数据+LDA结果表格内容 -->
-                        <div id="ldaResultContent" class="hidden">
-                            <div class="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-col items-center">
-                                <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 mb-4 flex items-center">
-                                    <i class="fa fa-file-excel-o text-green-600 text-3xl mr-3"></i>
-                                    <div class="flex-1">
-                                        <p class="font-medium">数据+LDA结果7.xlsx</p>
-                                        <p class="text-sm text-gray-500">4.7 MB · Excel 工作表</p>
-                                    </div>
-                                    <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
-                                        <i class="fa fa-download mr-2"></i> 下载
-                                    </button>
-                                </div>
-                                <p class="text-gray-600 text-center">这个神秘的表格展示了每首歌词的主题分布概率及最大主题分类，反映了具体歌词的主题归属。以几个典型案例来具体分析，第一首歌的主题0概率最高为0.9998，它的文本关键词有"想你、怪你、爱你、思念"，可以高度匹配"失恋与思念"主题，情感强烈；第二首歌词的主题4概率最高，也为0.9998，文本关键词为"在你身边、季节变换、温柔世界"，明确属于"陪伴与温暖"主题，表达陪伴的渴望；第二十四首歌的主题3概率最高为0.8712，文本关键词为"爱如火、燃烧、疯狂、心跳"，属于"爱情与热烈"主题，情感炽热；第四首歌的主题2概率最高为0.9998，文本关键词为"他只是经过、伤害、噩梦、眼泪"，符合"孤独与自我"的主题，充满失落感。快点开详细看看吧~</p>
-                            </div>
-                        </div>
+                    <div class="flex gap-2">
+                        <a href="主题-词分布7.xlsx" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
+                            <i class="fa fa-eye mr-2"></i> 打开
+                        </a>
+                        <a href="主题-词分布7.xlsx" download class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                            <i class="fa fa-download mr-2"></i> 下载
+                        </a>
                     </div>
                 </div>
+                <p class="text-gray-600 text-center">这个神秘的表格展示了 7 个主题中每个主题的前 100 个关键词及其分布概率，反映了每个主题的语义特征。总结来看，主题0这一列能体现"失恋与思念"的主题，关键词为"你、我、在、想、爱、眼泪、回忆、忘不了"，集中体现分手后的情感纠葛，如 "还是会想你""思念""伤疤" 等词汇，情感偏向痛苦和留恋；主题1体现"回忆与时光"，关键词为"我们、回忆、时光、过去、遇见、曾经"，聚焦于过去的情感经历，如 "回忆""遇见""时光匆匆" 等，带有对往事的怀念；主题2体现"孤独与自我"，关键词为"我、孤独、一个人、黑夜、沉默、挣扎"，描述独处时的内心状态，如 "黑夜""孤独""挣扎" 等，情感偏向压抑；主题3体现"爱情与热烈"，关键词为"爱、火焰、疯狂、心跳、燃烧、相拥"，表达浓烈的爱情感受，如 "爱情如烈火""心跳""相拥" 等，情感热烈直接；主题4体现"陪伴与温暖"，关键词为"你、我、陪伴、身边、温暖、一起"，强调亲密关系中的陪伴，如 "想在你身边""一起""温暖" 等，情感偏向温馨；主题5体现"成长与释怀"，关键词为"余生、舍得、放下、成长、学会、遗憾"，涉及情感中的成长与释怀，如 "余生""舍得""放下" 等，带有理性思考；主题6体现"传统与叙事"，关键词为"女子、拜堂、红尘、唢呐、高堂、姻缘"，融入传统元素，如 "拜天地""高堂""姻缘" 等，可能涉及古风或叙事性歌词。如果你好奇的话就点开看看吧~</p>
+            </div>
+        </div>
+        
+        <!-- 数据+LDA结果表格内容 -->
+        <div id="ldaResultContent" class="hidden">
+            <div class="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-col items-center">
+                <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 mb-4 flex items-center">
+                    <i class="fa fa-file-excel-o text-green-600 text-3xl mr-3"></i>
+                    <div class="flex-1">
+                        <p class="font-medium">数据+LDA结果7.xlsx</p>
+                        <p class="text-sm text-gray-500">4.7 MB · Excel 工作表</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <a href="数据+LDA结果7.xlsx" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
+                            <i class="fa fa-eye mr-2"></i> 打开
+                        </a>
+                        <a href="数据+LDA结果7.xlsx" download class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                            <i class="fa fa-download mr-2"></i> 下载
+                        </a>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-center">这个神秘的表格展示了每首歌词的主题分布概率及最大主题分类，反映了具体歌词的主题归属。以几个典型案例来具体分析，第一首歌的主题0概率最高为0.9998，它的文本关键词有"想你、怪你、爱你、思念"，可以高度匹配"失恋与思念"主题，情感强烈；第二首歌词的主题4概率最高，也为0.9998，文本关键词为"在你身边、季节变换、温柔世界"，明确属于"陪伴与温暖"主题，表达陪伴的渴望；第二十四首歌的主题3概率最高为0.8712，文本关键词为"爱如火、燃烧、疯狂、心跳"，属于"爱情与热烈"主题，情感炽热；第四首歌的主题2概率最高为0.9998，文本关键词为"他只是经过、伤害、噩梦、眼泪"，符合"孤独与自我"的主题，充满失落感。快点开详细看看吧~</p>
+            </div>
+        </div>
+    </div>
+</div>
 
                 <!-- 研究教程内容 -->
                 <div id="tutorialContent" class="hidden">
