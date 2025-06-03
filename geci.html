@@ -209,14 +209,14 @@
         <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 mb-4 flex items-center">
             <i class="fa fa-file-text-o text-blue-600 text-3xl mr-3"></i>
             <div class="flex-1">
-                <p class="font-medium">歌词词频统计.csv</p>
+                <p class="font-medium">词频统计结果.csv</p>
                 <p class="text-sm text-gray-500">1.8 MB · CSV 文件</p>
             </div>
             <div class="flex gap-2">
-                <a href="歌词词频统计.csv" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
+                <a href="词频统计结果.csv" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
                     <i class="fa fa-eye mr-2"></i> 打开
                 </a>
-                <a href="歌词词频统计.csv" download class="bg-secondary hover:bg-secondary/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                <a href="词频统计结果.csv" download class="bg-secondary hover:bg-secondary/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
                     <i class="fa fa-download mr-2"></i> 下载
                 </a>
             </div>
@@ -264,12 +264,31 @@
                 <p class="font-medium text-center">数据+LDA结果7.xlsx</p>
             </button>
         </div>
-        
-        <div id="topicContentPlaceholder" class="text-center py-12">
-            <i class="fa fa-bar-chart text-4xl text-gray-300 mb-4"></i>
-            <p class="text-gray-500">选择上方的主题聚类分析选项，查看详细内容</p>
-        </div>
-        
+
+      
+<script>
+    // 主题聚类按钮点击事件处理
+    document.querySelectorAll('.topic-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            // 获取要显示的内容ID
+            const contentId = button.getAttribute('data-content') + 'Content';
+            
+            // 隐藏所有内容区域
+            document.querySelectorAll('#topicContentPlaceholder, #perplexityContent, #topicWordContent, #ldaResultContent').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            // 显示选中的内容区域
+            document.getElementById(contentId).classList.remove('hidden');
+            
+            // 为选中的按钮添加高亮效果
+            document.querySelectorAll('.topic-btn').forEach(btn => {
+                btn.classList.remove('bg-accent/10', 'border-accent');
+            });
+            button.classList.add('bg-accent/10', 'border-accent');
+        });
+    });
+</script>
         <!-- 困惑度与一致性线型图内容 -->
         <div id="perplexityContent" class="hidden">
             <div class="bg-white rounded-lg shadow-md p-4 mb-6">
@@ -346,127 +365,165 @@
                     </div>
                 </div>
 
-                <!-- 代码文件内容 -->
-                <div id="codeFilesContent" class="hidden">
-                    <div class="flex items-center mb-6">
-                        <div class="w-10 h-10 bg-red-500/10 rounded-full flex items-center justify-center mr-3">
-                            <i class="fa fa-code text-red-500"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-dark">代码文件</h3>
-                    </div>
-                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
-                        <p class="text-center text-gray-600 text-lg italic mb-8">哇哦！恭喜你发现了本巫师的秘密宝藏~以下的这些代码可以帮助你实现从歌曲爬取到主题聚类分析的全过程研究，请好好利用哦~不用谢！</p>
-                        
-                        <div class="space-y-4">
-                            <!-- 代码文件列表 - 预留8个位置 -->
-                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
-                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-medium">歌词分词.py</h4>
-                                    <p class="text-sm text-gray-500">使用Python实现的歌词分词程序，支持多种分词算法和自定义词典</p>
-                                </div>
-                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
-                                    <i class="fa fa-download mr-2"></i> 下载
-                                </button>
-                            </div>
-                            
-                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
-                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-medium">歌词词频统计.py</h4>
-                                    <p class="text-sm text-gray-500">对分词后的歌词进行词频统计，并生成词云图和条形图</p>
-                                </div>
-                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
-                                    <i class="fa fa-download mr-2"></i> 下载
-                                </button>
-                            </div>
-                            
-                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
-                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-medium">歌词主题聚类.py</h4>
-                                    <p class="text-sm text-gray-500">使用LDA主题模型对歌词进行主题聚类分析</p>
-                                </div>
-                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
-                                    <i class="fa fa-download mr-2"></i> 下载
-                                </button>
-                            </div>
-                            
-                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
-                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-medium">2021年歌曲歌词.py</h4>
-                                    <p class="text-sm text-gray-500">从音乐平台API获取2021年歌词数据的爬虫程序</p>
-                                </div>
-                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
-                                    <i class="fa fa-download mr-2"></i> 下载
-                                </button>
-                            </div>
-                            
-                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
-                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-medium">2022年歌曲歌词.py</h4>
-                                    <p class="text-sm text-gray-500">从音乐平台API获取2022年歌词数据的爬虫程序</p>
-                                </div>
-                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
-                                    <i class="fa fa-download mr-2"></i> 下载
-                                </button>
-                            </div>
-                            
-                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
-                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-medium">2023年歌曲歌词.py</h4>
-                                    <p class="text-sm text-gray-500">从音乐平台API获取2023年歌词数据的爬虫程序</p>
-                                </div>
-                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
-                                    <i class="fa fa-download mr-2"></i> 下载
-                                </button>
-                            </div>
-                            
-                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
-                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-medium">2024年歌曲歌词.py</h4>
-                                    <p class="text-sm text-gray-500">从音乐平台API获取2024年歌词数据的爬虫程序</p>
-                                </div>
-                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
-                                    <i class="fa fa-download mr-2"></i> 下载
-                                </button>
-                            </div>
+               <!-- 代码文件内容 -->
+<div id="codeFilesContent" class="hidden">
+    <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-red-500/10 rounded-full flex items-center justify-center mr-3">
+            <i class="fa fa-code text-red-500"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-dark">代码文件</h3>
+    </div>
+    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+        <p class="text-center text-gray-600 text-lg italic mb-8">哇哦！恭喜你发现了本巫师的秘密宝藏~以下的这些代码可以帮助你实现从歌曲爬取到主题聚类分析的全过程研究，请好好利用哦~不用谢！</p>
+        
+        <div class="space-y-4">
+            <!-- 代码文件列表 - 预留8个位置 -->
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-medium">歌词分词.py</h4>
+                    <p class="text-sm text-gray-500">使用Python实现的歌词分词程序，支持多种分词算法和自定义词典</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="歌词分词.py.py" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-eye mr-2"></i> 打开
+                    </a>
+                    <a href="歌词分词.py.py" download class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-download mr-2"></i> 下载
+                    </a>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-medium">歌词词频统计.py</h4>
+                    <p class="text-sm text-gray-500">对分词后的歌词进行词频统计，并生成词云图和条形图</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="歌词词频统计.py" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-eye mr-2"></i> 打开
+                    </a>
+                    <a href="歌词词频统计.py" download class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-download mr-2"></i> 下载
+                    </a>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-medium">歌词主题聚类.py</h4>
+                    <p class="text-sm text-gray-500">使用LDA主题模型对歌词进行主题聚类分析</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="歌词主题聚类.py" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-eye mr-2"></i> 打开
+                    </a>
+                    <a href="歌词主题聚类.py" download class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-download mr-2"></i> 下载
+                    </a>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-medium">2021年歌曲歌词.py</h4>
+                    <p class="text-sm text-gray-500">从音乐平台API获取2021年歌词数据的爬虫程序</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="2021年歌曲歌词.py" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-eye mr-2"></i> 打开
+                    </a>
+                    <a href="2021年歌曲歌词.py" download class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-download mr-2"></i> 下载
+                    </a>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-medium">2022年歌曲歌词.py</h4>
+                    <p class="text-sm text-gray-500">从音乐平台API获取2022年歌词数据的爬虫程序</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="2022年歌曲歌词.py" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-eye mr-2"></i> 打开
+                    </a>
+                    <a href="2022年歌曲歌词.py" download class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-download mr-2"></i> 下载
+                    </a>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-medium">2023年歌曲歌词.py</h4>
+                    <p class="text-sm text-gray-500">从音乐平台API获取2023年歌词数据的爬虫程序</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="2023年歌曲歌词.py" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-eye mr-2"></i> 打开
+                    </a>
+                    <a href="2023年歌曲歌词.py" download class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-download mr-2"></i> 下载
+                    </a>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-medium">2024年歌曲歌词.py</h4>
+                    <p class="text-sm text-gray-500">从音乐平台API获取2024年歌词数据的爬虫程序</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="2024年歌曲歌词.py" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-eye mr-2"></i> 打开
+                    </a>
+                    <a href="2024年歌曲歌词.py" download class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-download mr-2"></i> 下载
+                    </a>
+                </div>
+            </div>
                   
-                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
-                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-medium">2025年歌曲歌词.py</h4>
-                                    <p class="text-sm text-gray-500">从音乐平台API获取2025年歌词数据的爬虫程序</p>
-                                </div>
-                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
-                                    <i class="fa fa-download mr-2"></i> 下载
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-medium">2025年歌曲歌词.py</h4>
+                    <p class="text-sm text-gray-500">从音乐平台API获取2025年歌词数据的爬虫程序</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="2025年歌曲歌词.py" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-eye mr-2"></i> 打开
+                    </a>
+                    <a href="2025年歌曲歌词.py" download class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                        <i class="fa fa-download mr-2"></i> 下载
+                    </a>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
         <!-- 页脚 -->
         <footer class="bg-dark text-white py-12">
