@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音乐研究的世界</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36D399',
+                        accent: '#FF9F1C',
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            }
+            .transition-transform-opacity {
+                transition-property: transform, opacity;
+                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration: 300ms;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-light text-dark overflow-x-hidden">
+    <!-- 首页 -->
+    <div id="homePage" class="min-h-screen w-full flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="首页背景图.jpg" alt="音乐研究背景" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-dark/50"></div>
+        </div>
+        <div class="container mx-auto px-4 z-10 text-center">
+            <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold text-white text-shadow mb-8 transform transition-all duration-700 hover:scale-105">
+                欢迎来到音乐研究的世界！
+            </h1>
+            <button id="enterBtn" class="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-full text-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                点击进入 <i class="fa fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+        <div class="absolute bottom-6 left-0 right-0 text-center z-10">
+            <a href="#mainPage" class="text-white animate-bounce inline-block">
+                <i class="fa fa-angle-down text-3xl"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- 主页面 -->
+    <div id="mainPage" class="min-h-screen w-full hidden">
+        <!-- 导航栏 -->
+        <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="navbar">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fa fa-music text-primary text-2xl"></i>
+                    <span class="text-xl font-bold text-primary">音乐研究</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#homePage" class="text-dark hover:text-primary transition-colors">首页</a>
+                    <a href="#lyricsSegmentation" class="text-dark hover:text-primary transition-colors">歌词分词</a>
+                    <a href="#wordFrequency" class="text-dark hover:text-primary transition-colors">词频统计</a>
+                    <a href="#topicClustering" class="text-dark hover:text-primary transition-colors">主题聚类</a>
+                    <a href="#tutorial" class="text-dark hover:text-primary transition-colors">研究教程</a>
+                    <a href="#codeFiles" class="text-dark hover:text-primary transition-colors">代码文件</a>
+                </div>
+                <button id="mobileMenuBtn" class="md:hidden text-dark text-2xl">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <!-- 移动端菜单 -->
+            <div id="mobileMenu" class="md:hidden bg-white w-full py-4 px-4 hidden">
+                <div class="flex flex-col space-y-4">
+                    <a href="#homePage" class="text-dark hover:text-primary transition-colors py-2 border-b border-gray-100">首页</a>
+                    <a href="#lyricsSegmentation" class="text-dark hover:text-primary transition-colors py-2 border-b border-gray-100">歌词分词</a>
+                    <a href="#wordFrequency" class="text-dark hover:text-primary transition-colors py-2 border-b border-gray-100">词频统计</a>
+                    <a href="#topicClustering" class="text-dark hover:text-primary transition-colors py-2 border-b border-gray-100">主题聚类</a>
+                    <a href="#tutorial" class="text-dark hover:text-primary transition-colors py-2 border-b border-gray-100">研究教程</a>
+                    <a href="#codeFiles" class="text-dark hover:text-primary transition-colors py-2">代码文件</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 主要内容区 -->
+        <div class="container mx-auto px-4 pt-24 pb-32">
+            <div id="heroSection" class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold text-dark mb-4">音乐研究中心</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">探索音乐文本的奇妙世界，从歌词分析到主题挖掘，让我们一起发现音乐背后的故事。</p>
+            </div>
+
+            <!-- 研究板块 -->
+            <div id="researchSections" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
+                <div class="research-card group bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2" data-section="lyricsSegmentation">
+                    <div class="h-3 bg-primary"></div>
+                    <div class="p-6 text-center">
+                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+                            <i class="fa fa-scissors text-primary text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">歌词分词</h3>
+                        <p class="text-gray-600 text-sm">将歌词进行智能分词处理</p>
+                    </div>
+                </div>
+
+                <div class="research-card group bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2" data-section="wordFrequency">
+                    <div class="h-3 bg-secondary"></div>
+                    <div class="p-6 text-center">
+                        <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-secondary/20 transition-colors">
+                            <i class="fa fa-bar-chart text-secondary text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">词频统计</h3>
+                        <p class="text-gray-600 text-sm">分析歌词中的高频词汇</p>
+                    </div>
+                </div>
+
+                <div class="research-card group bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2" data-section="topicClustering">
+                    <div class="h-3 bg-accent"></div>
+                    <div class="p-6 text-center">
+                        <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent/20 transition-colors">
+                            <i class="fa fa-object-group text-accent text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">主题聚类</h3>
+                        <p class="text-gray-600 text-sm">探索歌词的主题分类</p>
+                    </div>
+                </div>
+
+                <div class="research-card group bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2" data-section="tutorial">
+                    <div class="h-3 bg-purple-500"></div>
+                    <div class="p-6 text-center">
+                        <div class="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-500/20 transition-colors">
+                            <i class="fa fa-book text-purple-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">研究教程</h3>
+                        <p class="text-gray-600 text-sm">学习音乐文本分析方法</p>
+                    </div>
+                </div>
+
+                <div class="research-card group bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2" data-section="codeFiles">
+                    <div class="h-3 bg-red-500"></div>
+                    <div class="p-6 text-center">
+                        <div class="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-red-500/20 transition-colors">
+                            <i class="fa fa-code text-red-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">代码文件</h3>
+                        <p class="text-gray-600 text-sm">获取数据分析源代码</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 研究内容区 -->
+            <div id="researchContent" class="bg-white rounded-xl shadow-lg p-8">
+                <div id="contentPlaceholder" class="text-center py-16">
+                    <i class="fa fa-music text-5xl text-gray-300 mb-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-500 mb-2">选择一个研究方向</h3>
+                    <p class="text-gray-400">点击上方的研究板块，查看详细内容</p>
+                </div>
+
+                <!-- 歌词分词内容 -->
+                <div id="lyricsSegmentationContent" class="hidden">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                            <i class="fa fa-scissors text-primary"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark">歌词分词</h3>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6 flex flex-col items-center">
+                        <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 mb-4 flex items-center">
+                            <i class="fa fa-file-excel-o text-green-600 text-3xl mr-3"></i>
+                            <div class="flex-1">
+                                <p class="font-medium">歌词分词结果.xlsx</p>
+                                <p class="text-sm text-gray-500">2.4 MB · Excel 工作表</p>
+                            </div>
+                            <button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                                <i class="fa fa-download mr-2"></i> 下载
+                            </button>
+                        </div>
+                        <p class="text-gray-600 text-center">本巫师已经用魔法将歌词进行了分词处理，点击文件查看分词结果！在分词之前请先将歌词整合在一个表格中哦~如果你也想得到分词结果，请前往"代码文件"中寻找名为"歌词分词.py"的代码！记住，在分词之前一定要先对文本进行清洗，清晰的过程在“研究教程”里，可以仔细查看视频学习！祝你成功~</p>
+                    </div>
+                </div>
+
+                <!-- 词频统计内容 -->
+                <div id="wordFrequencyContent" class="hidden">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mr-3">
+                            <i class="fa fa-bar-chart text-secondary"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark">词频统计</h3>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 mb-4 flex items-center">
+                            <i class="fa fa-file-text-o text-blue-600 text-3xl mr-3"></i>
+                            <div class="flex-1">
+                                <p class="font-medium">歌词词频统计.csv</p>
+                                <p class="text-sm text-gray-500">1.8 MB · CSV 文件</p>
+                            </div>
+                            <button class="bg-secondary hover:bg-secondary/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                                <i class="fa fa-download mr-2"></i> 下载
+                            </button>
+                        </div>
+                        <p class="text-gray-600 mb-6">恭喜你成功统计出歌词的词频！如果你好奇近五年的热门歌曲都围绕哪些词展开，点开查看吧~</p>
+                        
+                        <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+                            <img src="https://picsum.photos/id/1/800/400" alt="词频统计图.png" class="w-full h-auto rounded-lg">
+                            <p class="text-gray-600 mt-3">这是歌词词频统计条形图，能够十分直观地展示前20个高频词有哪些~</p>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+                            <img src="https://picsum.photos/id/2/800/400" alt="歌词词云图.png" class="w-full h-auto rounded-lg">
+                            <p class="text-gray-600 mt-3">恭喜你发现了歌词词云图~如果你也想制作出这些神奇的魔法产物，请前往"代码文件"中寻找名为"歌词词频统计.py"的代码！也可以结合研究教程学习哦~</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 主题聚类内容 -->
+                <div id="topicClusteringContent" class="hidden">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center mr-3">
+                            <i class="fa fa-object-group text-accent"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark">主题聚类</h3>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                            <button class="topic-btn bg-white hover:bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm transition-all duration-200 hover:shadow" data-content="perplexity">
+                                <div class="flex items-center justify-center h-12 mb-2">
+                                    <i class="fa fa-line-chart text-accent text-xl"></i>
+                                </div>
+                                <p class="font-medium text-center">主题聚类图.png</p>
+                            </button>
+                            <button class="topic-btn bg-white hover:bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm transition-all duration-200 hover:shadow" data-content="topicWord">
+                                <div class="flex items-center justify-center h-12 mb-2">
+                                    <i class="fa fa-table text-accent text-xl"></i>
+                                </div>
+                                <p class="font-medium text-center">主题-词分布7.xlsx</p>
+                            </button>
+                            <button class="topic-btn bg-white hover:bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm transition-all duration-200 hover:shadow" data-content="ldaResult">
+                                <div class="flex items-center justify-center h-12 mb-2">
+                                    <i class="fa fa-database text-accent text-xl"></i>
+                                </div>
+                                <p class="font-medium text-center">数据+LDA结果7.xlsx</p>
+                            </button>
+                        </div>
+                        
+                        <div id="topicContentPlaceholder" class="text-center py-12">
+                            <i class="fa fa-bar-chart text-4xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-500">选择上方的主题聚类分析选项，查看详细内容</p>
+                        </div>
+                        
+                        <!-- 困惑度与一致性线型图内容 -->
+                        <div id="perplexityContent" class="hidden">
+                            <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+                                <img src="https://picsum.photos/id/3/800/400" alt="主题聚类图.png" class="w-full h-auto rounded-lg">
+                                <p class="text-gray-600 mt-3">是不是很困惑呢~让本巫师来为你解读！主题聚类分析中的困惑度（Perplexity）和一致性（Coherence）是评估主题模型质量的常用指标，困惑度衡量模型对未见过数据的预测能力，数值越低表示模型越好；一致性评估主题内词语的语义相关性，数值越高（通常0到1之间）表示主题越连贯。由生成的两张线型图可以看出，困惑度随着主题数增大而上升，当主题数为10时困惑度最大；一致性在特定的区间波动，当主题数为3时，一致性最高，由此看来困惑度与一致性存在冲突，此时应该优先考虑一致性，因此主题数选择3。通常期望困惑度随主题数增加而下降，而本次结果却相反，说明模型过拟合或样本量不足；一致性在主题数为2-3之间上升，说明少量主题是，词语聚焦更明确，而随着主题数增加一致性下降，说明主题细分导致语义分散。以上出现的问题与出入的原因可能在于数据量不足、预处理不当、数据实际隐含的主题数较少等，后续可能需要再进行调整，但目前来看主题聚类的效果比较明显，因此可以作为研究理论的依据。</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 主题-词分布表格内容 -->
+                        <div id="topicWordContent" class="hidden">
+                            <div class="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-col items-center">
+                                <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 mb-4 flex items-center">
+                                    <i class="fa fa-file-excel-o text-green-600 text-3xl mr-3"></i>
+                                    <div class="flex-1">
+                                        <p class="font-medium">主题-词分布7.xlsx</p>
+                                        <p class="text-sm text-gray-500">3.2 MB · Excel 工作表</p>
+                                    </div>
+                                    <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                                        <i class="fa fa-download mr-2"></i> 下载
+                                    </button>
+                                </div>
+                                <p class="text-gray-600 text-center">这个神秘的表格展示了 7 个主题中每个主题的前 100 个关键词及其分布概率，反映了每个主题的语义特征。总结来看，主题0这一列能体现"失恋与思念"的主题，关键词为"你、我、在、想、爱、眼泪、回忆、忘不了"，集中体现分手后的情感纠葛，如 "还是会想你""思念""伤疤" 等词汇，情感偏向痛苦和留恋；主题1体现"回忆与时光"，关键词为"我们、回忆、时光、过去、遇见、曾经"，聚焦于过去的情感经历，如 "回忆""遇见""时光匆匆" 等，带有对往事的怀念；主题2体现"孤独与自我"，关键词为"我、孤独、一个人、黑夜、沉默、挣扎"，描述独处时的内心状态，如 "黑夜""孤独""挣扎" 等，情感偏向压抑；主题3体现"爱情与热烈"，关键词为"爱、火焰、疯狂、心跳、燃烧、相拥"，表达浓烈的爱情感受，如 "爱情如烈火""心跳""相拥" 等，情感热烈直接；主题4体现"陪伴与温暖"，关键词为"你、我、陪伴、身边、温暖、一起"，强调亲密关系中的陪伴，如 "想在你身边""一起""温暖" 等，情感偏向温馨；主题5体现"成长与释怀"，关键词为"余生、舍得、放下、成长、学会、遗憾"，涉及情感中的成长与释怀，如 "余生""舍得""放下" 等，带有理性思考；主题6体现"传统与叙事"，关键词为"女子、拜堂、红尘、唢呐、高堂、姻缘"，融入传统元素，如 "拜天地""高堂""姻缘" 等，可能涉及古风或叙事性歌词。如果你好奇的话就点开看看吧~</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 数据+LDA结果表格内容 -->
+                        <div id="ldaResultContent" class="hidden">
+                            <div class="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-col items-center">
+                                <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 mb-4 flex items-center">
+                                    <i class="fa fa-file-excel-o text-green-600 text-3xl mr-3"></i>
+                                    <div class="flex-1">
+                                        <p class="font-medium">数据+LDA结果7.xlsx</p>
+                                        <p class="text-sm text-gray-500">4.7 MB · Excel 工作表</p>
+                                    </div>
+                                    <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                                        <i class="fa fa-download mr-2"></i> 下载
+                                    </button>
+                                </div>
+                                <p class="text-gray-600 text-center">这个神秘的表格展示了每首歌词的主题分布概率及最大主题分类，反映了具体歌词的主题归属。以几个典型案例来具体分析，第一首歌的主题0概率最高为0.9998，它的文本关键词有"想你、怪你、爱你、思念"，可以高度匹配"失恋与思念"主题，情感强烈；第二首歌词的主题4概率最高，也为0.9998，文本关键词为"在你身边、季节变换、温柔世界"，明确属于"陪伴与温暖"主题，表达陪伴的渴望；第二十四首歌的主题3概率最高为0.8712，文本关键词为"爱如火、燃烧、疯狂、心跳"，属于"爱情与热烈"主题，情感炽热；第四首歌的主题2概率最高为0.9998，文本关键词为"他只是经过、伤害、噩梦、眼泪"，符合"孤独与自我"的主题，充满失落感。快点开详细看看吧~</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 研究教程内容 -->
+                <div id="tutorialContent" class="hidden">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-purple-500/10 rounded-full flex items-center justify-center mr-3">
+                            <i class="fa fa-book text-purple-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark">研究教程</h3>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <!-- 视频播放器 -->
+                        <div class="w-full max-w-4xl mx-auto mb-6">
+                            <div class="relative aspect-video bg-black rounded-lg overflow-hidden shadow-xl">
+                                <video controls poster="视频解说-封面.jpg" class="w-full h-full object-cover">
+                                    <source src="视频说明.mp4" type="video/mp4">
+                                    您的浏览器不支持视频播放。
+                                </video>
+                            </div>
+                        </div>
+                        <p class="text-center text-gray-600 text-lg italic">终于等到你~欢迎收看本巫师精心制作的全过程视频教程！希望你能收获多多~</p>
+                    </div>
+                </div>
+
+                <!-- 代码文件内容 -->
+                <div id="codeFilesContent" class="hidden">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-red-500/10 rounded-full flex items-center justify-center mr-3">
+                            <i class="fa fa-code text-red-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-dark">代码文件</h3>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <p class="text-center text-gray-600 text-lg italic mb-8">哇哦！恭喜你发现了本巫师的秘密宝藏~以下的这些代码可以帮助你实现从歌曲爬取到主题聚类分析的全过程研究，请好好利用哦~不用谢！</p>
+                        
+                        <div class="space-y-4">
+                            <!-- 代码文件列表 - 预留8个位置 -->
+                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-medium">歌词分词.py</h4>
+                                    <p class="text-sm text-gray-500">使用Python实现的歌词分词程序，支持多种分词算法和自定义词典</p>
+                                </div>
+                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <i class="fa fa-download mr-2"></i> 下载
+                                </button>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-medium">歌词词频统计.py</h4>
+                                    <p class="text-sm text-gray-500">对分词后的歌词进行词频统计，并生成词云图和条形图</p>
+                                </div>
+                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <i class="fa fa-download mr-2"></i> 下载
+                                </button>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-medium">歌词主题聚类.py</h4>
+                                    <p class="text-sm text-gray-500">使用LDA主题模型对歌词进行主题聚类分析</p>
+                                </div>
+                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <i class="fa fa-download mr-2"></i> 下载
+                                </button>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-medium">2021年歌曲歌词.py</h4>
+                                    <p class="text-sm text-gray-500">从音乐平台API获取2021年歌词数据的爬虫程序</p>
+                                </div>
+                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <i class="fa fa-download mr-2"></i> 下载
+                                </button>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-medium">2022年歌曲歌词.py</h4>
+                                    <p class="text-sm text-gray-500">从音乐平台API获取2022年歌词数据的爬虫程序</p>
+                                </div>
+                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <i class="fa fa-download mr-2"></i> 下载
+                                </button>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-medium">2023年歌曲歌词.py</h4>
+                                    <p class="text-sm text-gray-500">从音乐平台API获取2023年歌词数据的爬虫程序</p>
+                                </div>
+                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <i class="fa fa-download mr-2"></i> 下载
+                                </button>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-medium">2024年歌曲歌词.py</h4>
+                                    <p class="text-sm text-gray-500">从音乐平台API获取2024年歌词数据的爬虫程序</p>
+                                </div>
+                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <i class="fa fa-download mr-2"></i> 下载
+                                </button>
+                            </div>
+                  
+                            <div class="bg-white rounded-lg shadow-md p-4 flex items-center hover:shadow-lg transition-shadow duration-300">
+                                <div class="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-file-code-o text-red-500 text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-medium">2025年歌曲歌词.py</h4>
+                                    <p class="text-sm text-gray-500">从音乐平台API获取2025年歌词数据的爬虫程序</p>
+                                </div>
+                                <button class="bg-red-500 hover:bg-red-500/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                                    <i class="fa fa-download mr-2"></i> 下载
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="bg-dark text-white py-12">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <i class="fa fa-music text-primary text-2xl"></i>
+                            <span class="text-xl font-bold">音乐研究</span>
+                        </div>
+                        <p class="text-gray-400 mb-4">探索音乐文本的奇妙世界，从歌词分析到主题挖掘。</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-github text-xl"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-twitter text-xl"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                <i class="fa fa-linkedin text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">服务概览</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#homePage" class="text-gray-400 hover:text-primary transition-colors">首页</a></li>
+                            <li><a href="#lyricsSegmentation" class="text-gray-400 hover:text-primary transition-colors">歌词分词</a></li>
+                            <li><a href="#wordFrequency" class="text-gray-400 hover:text-primary transition-colors">词频统计</a></li>
+                            <li><a href="#topicClustering" class="text-gray-400 hover:text-primary transition-colors">主题聚类</a></li>
+                            <li><a href="#tutorial" class="text-gray-400 hover:text-primary transition-colors">研究教程</a></li>
+                            <li><a href="#codeFiles" class="text-gray-400 hover:text-primary transition-colors">代码文件</a></li>
+                        </ul>
+                    </div>
+                 
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">联系我们</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-gray-400">
+                                <i class="fa fa-envelope-o mr-2 text-primary"></i>
+                                <a href="mailto:contact@musicresearch.com" class="hover:text-primary transition-colors">contact@musicresearch.com</a>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i class="fa fa-phone mr-2 text-primary"></i>
+                                <a href="tel:+123456789" class="hover:text-primary transition-colors">+123 456 789</a>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i class="fa fa-map-marker mr-2 text-primary"></i>
+                                <span>霍格沃茨赫奇帕奇学院音乐研究基地</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+                    <p>&copy; 2025 音乐研究中心. 保留所有权利.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取DOM元素
+            const enterBtn = document.getElementById('enterBtn');
+            const homePage = document.getElementById('homePage');
+            const mainPage = document.getElementById('mainPage');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const navbar = document.getElementById('navbar');
+            const researchCards = document.querySelectorAll('.research-card');
+            const topicBtns = document.querySelectorAll('.topic-btn');
+            
+            // 进入按钮点击事件
+            enterBtn.addEventListener('click', function() {
+                homePage.classList.add('hidden');
+                mainPage.classList.remove('hidden');
+                // 平滑滚动到主页面
+                document.getElementById('heroSection').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // 移动端菜单切换
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                // 切换图标
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon.classList.contains('fa-bars')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+            
+            // 导航栏滚动效果
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    navbar.classList.add('py-2');
+                    navbar.classList.add('bg-white/95');
+                    navbar.classList.add('backdrop-blur-sm');
+                    navbar.classList.remove('py-3');
+                } else {
+                    navbar.classList.remove('py-2');
+                    navbar.classList.remove('bg-white/95');
+                    navbar.classList.remove('backdrop-blur-sm');
+                    navbar.classList.add('py-3');
+                }
+            });
+            
+            // 研究板块点击事件
+            researchCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const section = this.getAttribute('data-section');
+                    // 隐藏所有内容
+                    document.querySelectorAll('#researchContent > div').forEach(div => {
+                        div.classList.add('hidden');
+                    });
+                    // 显示对应内容
+                    document.getElementById(`${section}Content`).classList.remove('hidden');
+                    // 平滑滚动到内容区域
+                    document.getElementById('researchContent').scrollIntoView({ behavior: 'smooth' });
+                    // 关闭移动菜单（如果打开）
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        const icon = mobileMenuBtn.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            });
+            
+            // 主题聚类按钮点击事件
+            topicBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const content = this.getAttribute('data-content');
+                    // 隐藏所有主题内容
+                    document.querySelectorAll('#topicClusteringContent [id$="Content"]').forEach(div => {
+                        if (div.id !== 'topicClusteringContent') {
+                            div.classList.add('hidden');
+                        }
+                    });
+                    // 显示对应内容
+                    document.getElementById(`${content}Content`).classList.remove('hidden');
+                });
+            });
+            
+            // 平滑滚动到锚点
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        // 关闭移动菜单（如果打开）
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                            const icon = mobileMenuBtn.querySelector('i');
+                            icon.classList.remove('fa-times');
+                            icon.classList.add('fa-bars');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>    
