@@ -170,60 +170,70 @@
                 </div>
 
                 <!-- 歌词分词内容 -->
-                <div id="lyricsSegmentationContent" class="hidden">
-                    <div class="flex items-center mb-6">
-                        <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3">
-                            <i class="fa fa-scissors text-primary"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-dark">歌词分词</h3>
-                    </div>
-                    <div class="bg-gray-50 rounded-lg p-6 mb-6 flex flex-col items-center">
-                        <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 mb-4 flex items-center">
-                            <i class="fa fa-file-excel-o text-green-600 text-3xl mr-3"></i>
-                            <div class="flex-1">
-                                <p class="font-medium">歌词分词结果.xlsx</p>
-                                <p class="text-sm text-gray-500">2.4 MB · Excel 工作表</p>
-                            </div>
-                            <button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
-                                <i class="fa fa-download mr-2"></i> 下载
-                            </button>
-                        </div>
-                        <p class="text-gray-600 text-center">本巫师已经用魔法将歌词进行了分词处理，点击文件查看分词结果！在分词之前请先将歌词整合在一个表格中哦~如果你也想得到分词结果，请前往"代码文件"中寻找名为"歌词分词.py"的代码！记住，在分词之前一定要先对文本进行清洗，清晰的过程在“研究教程”里，可以仔细查看视频学习！祝你成功~</p>
-                    </div>
-                </div>
+               <div id="lyricsSegmentationContent" class="hidden">
+    <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+            <i class="fa fa-scissors text-primary"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-dark">歌词分词</h3>
+    </div>
+    <div class="bg-gray-50 rounded-lg p-6 mb-6 flex flex-col items-center">
+        <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 mb-4 flex items-center">
+            <i class="fa fa-file-excel-o text-green-600 text-3xl mr-3"></i>
+            <div class="flex-1">
+                <p class="font-medium">歌词分词结果.xlsx</p>
+                <p class="text-sm text-gray-500">2.4 MB · Excel 工作表</p>
+            </div>
+            <div class="flex gap-2">
+                <a href="歌词分词结果.xlsx" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
+                    <i class="fa fa-eye mr-2"></i> 打开
+                </a>
+                <a href="歌词分词结果.xlsx" download class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                    <i class="fa fa-download mr-2"></i> 下载
+                </a>
+            </div>
+        </div>
+        <p class="text-gray-600 text-center">本巫师已经用魔法将歌词进行了分词处理，点击文件查看分词结果！在分词之前请先将歌词整合在一个表格中哦~如果你也想得到分词结果，请前往"代码文件"中寻找名为"歌词分词.py"的代码！记住，在分词之前一定要先对文本进行清洗，清晰的过程在“研究教程”里，可以仔细查看视频学习！祝你成功~</p>
+    </div>
+</div>
 
                 <!-- 词频统计内容 -->
                 <div id="wordFrequencyContent" class="hidden">
-                    <div class="flex items-center mb-6">
-                        <div class="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mr-3">
-                            <i class="fa fa-bar-chart text-secondary"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-dark">词频统计</h3>
-                    </div>
-                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
-                        <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 mb-4 flex items-center">
-                            <i class="fa fa-file-text-o text-blue-600 text-3xl mr-3"></i>
-                            <div class="flex-1">
-                                <p class="font-medium">歌词词频统计.csv</p>
-                                <p class="text-sm text-gray-500">1.8 MB · CSV 文件</p>
-                            </div>
-                            <button class="bg-secondary hover:bg-secondary/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
-                                <i class="fa fa-download mr-2"></i> 下载
-                            </button>
-                        </div>
-                        <p class="text-gray-600 mb-6">恭喜你成功统计出歌词的词频！如果你好奇近五年的热门歌曲都围绕哪些词展开，点开查看吧~</p>
-                        
-                        <div class="bg-white rounded-lg shadow-md p-4 mb-6">
-                            <img src="https://picsum.photos/id/1/800/400" alt="词频统计图.png" class="w-full h-auto rounded-lg">
-                            <p class="text-gray-600 mt-3">这是歌词词频统计条形图，能够十分直观地展示前20个高频词有哪些~</p>
-                        </div>
-                        
-                        <div class="bg-white rounded-lg shadow-md p-4 mb-6">
-                            <img src="https://picsum.photos/id/2/800/400" alt="歌词词云图.png" class="w-full h-auto rounded-lg">
-                            <p class="text-gray-600 mt-3">恭喜你发现了歌词词云图~如果你也想制作出这些神奇的魔法产物，请前往"代码文件"中寻找名为"歌词词频统计.py"的代码！也可以结合研究教程学习哦~</p>
-                        </div>
-                    </div>
-                </div>
+    <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mr-3">
+            <i class="fa fa-bar-chart text-secondary"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-dark">词频统计</h3>
+    </div>
+    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+        <div class="w-full max-w-2xl bg-white rounded-lg shadow-md p-4 mb-4 flex items-center">
+            <i class="fa fa-file-text-o text-blue-600 text-3xl mr-3"></i>
+            <div class="flex-1">
+                <p class="font-medium">歌词词频统计.csv</p>
+                <p class="text-sm text-gray-500">1.8 MB · CSV 文件</p>
+            </div>
+            <div class="flex gap-2">
+                <a href="歌词词频统计.csv" target="_blank" class="bg-gray-200 hover:bg-gray-300 text-dark px-4 py-2 rounded-lg text-sm flex items-center">
+                    <i class="fa fa-eye mr-2"></i> 打开
+                </a>
+                <a href="歌词词频统计.csv" download class="bg-secondary hover:bg-secondary/90 text-white px-4 py-2 rounded-lg text-sm flex items-center">
+                    <i class="fa fa-download mr-2"></i> 下载
+                </a>
+            </div>
+        </div>
+        <p class="text-gray-600 mb-6">恭喜你成功统计出歌词的词频！如果你好奇近五年的热门歌曲都围绕哪些词展开，点开查看吧~</p>
+        
+        <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+            <img src="词频统计图.png" alt="词频统计图" class="w-full h-auto rounded-lg">
+            <p class="text-gray-600 mt-3">这是歌词词频统计条形图，能够十分直观地展示前20个高频词有哪些~</p>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+            <img src="歌词词云图.png" alt="歌词词云图" class="w-full h-auto rounded-lg">
+            <p class="text-gray-600 mt-3">恭喜你发现了歌词词云图~如果你也想制作出这些神奇的魔法产物，请前往"代码文件"中寻找名为"歌词词频统计.py"的代码！也可以结合研究教程学习哦~</p>
+        </div>
+    </div>
+</div>
 
                 <!-- 主题聚类内容 -->
                 <div id="topicClusteringContent" class="hidden">
